@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dropbox Integration</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Welcome to Dropbox Integration</h1>
+    <div class="container">
+        <h1>Dropbox Connected</h1>
+        <p><a href="/dropbox/files?token=<%= token %>">View Your Dropbox Files</a></p>
 
-    <a href="/dropbox/files?token=<%= accessToken %>" class="button">List files</a>
+        <h2>Upload a File</h2>
+        <form action="/dropbox/upload" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="token" value="<%= token %>">
+            <input type="file" name="file" required>
+            <input type="text" name="destination" placeholder="Dropbox destination path (e.g., /myfile.txt)" required>
+            <button type="submit">Upload</button>
+        </form>
 
-    <h2>Upload a File</h2>
-    <form id="upload-form" action="/dropbox/upload" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="token" value="<%= accessToken %>" />
-        <input type="file" name="file" id="file-input" required />
-        <input type="text" name="destination" placeholder="Dropbox destination path (e.g. /folder/file.txt)" />
-        <button type="submit">Upload</button>
-    </form>
-
-    <h2>Delete a File</h2>
-    <form id="delete-form" action="/dropbox/delete" method="post">
-        <input type="hidden" name="token" value="<%= accessToken %>" />
-        <input type="text" name="path" placeholder="Dropbox file path to delete (e.g. /folder/file.txt)" required />
-        <button type="submit">Delete</button>
-    </form>
+        <h2>Delete a File</h2>
+        <form action="/dropbox/delete" method="post">
+            <input type="hidden" name="token" value="<%= token %>">
+            <input type="text" name="path" placeholder="Dropbox file path to delete (e.g., /myfile.txt)" required>
+            <button type="submit">Delete</button>
+        </form>
+    </div>
 </body>
 </html>

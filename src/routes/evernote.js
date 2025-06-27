@@ -28,17 +28,42 @@ router.get('/oauth_callback', async (req, res) => {
     console.log('Obtained oauthAccessToken:', accessToken);
     //res.json({ accessToken: accessToken });
      res.send(`<!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <title>Document Integrator</title>
-                <link rel="stylesheet" href="styles.css">
-            </head>
-            <body>
-                <a href="/evernote/notebooks">List files</a>
-            </body>
-            </html>`)
+                <style>
+                  body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                  }
+
+                  .btn {
+                    text-decoration: none;
+                    background-color: #4a90e2;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 6px;
+                    font-size: 16px;
+                    transition: background 0.3s;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                  }
+
+                  .btn:hover {
+                    background-color: #357abd;
+                  }
+                </style>
+              </head>
+              <body>
+                <a href="/evernote/notebooks" class="btn">📁 List Files</a>
+              </body>
+              </html>`);
   } catch (error) {
     console.error('Error in /oauth_callback:', error);
     res.status(500).send(error.toString());
