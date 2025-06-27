@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Dropbox Files</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2em; }
+        .file {
+            border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .file-info { flex-grow: 1; }
+        a.button, button {
+            background-color: #007bff; color: white; border: none;
+            padding: 6px 12px; cursor: pointer; border-radius: 4px;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+        button.delete {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Dropbox Files</h1>
+
+    <a href="/dropbox/oauth2callback?token=<%= accessToken %>" class="button">Back</a>
+
+    <div id="file-list">
+        <% if (files.length === 0) { %>
+            <p>No files found.</p>
+        <% } else { %>
+            <% files.forEach(file => { %>
+                <div class="file">
+                    <div class="file-info"><strong><%= file.name %></strong></div>
+                    <div>
+                        <a href="/dropbox/download?token=<%= accessToken %>&path=<%= encodeURIComponent(file.path_lower) %>" class="button">Download</a>
+
+                        <form action="/dropbox/delete" method="post" style="display:inline" onsubmit="return confirm('Delete <%= file.name %>?');">
+                            <input type="hidden" name="token" value="<%= accessToken %>" />
+                            <input type="hidden" name="path" value="<%= file.path_lower %>" />
+                            <button type="submit" class="delete">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+
+    <h2>Upload a File</h2>
+    <form id="upload-form" action="/dropbox/upload" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="token" value="<%= accessToken %>" />
+        <input type="file" name="file" id="file-input" required />
+        <input type="text" name="destination" placeholder="Dropbox destination path (e.g. /folder/file.txt)" />
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

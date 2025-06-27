@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Drive File Manager</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .upload-box {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .file {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .file strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .file a, .file button {
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            padding: 6px;
+            margin-right: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            display: inline-block;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Drive File Manager</h1>
+    <div class="upload-box">
+        <form action="/google-drive/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Upload File</button>
+        </form>
+    </div>
+
+    <div id="file-list">
+        <% files.forEach(file => { %>
+            <div class="file">
+                <strong><%= file.name %></strong>
+                <a href="/google-drive/files/<%= file.id %>/download">Download</a>
+
+                <form action="/google-drive/files/<%= file.id %>/rename" method="post">
+                    <input type="text" name="newName" placeholder="New name" required>
+                    <button type="submit">Rename</button>
+                </form>
+            </div>
+        <% }); %>
+
+    </div>
+</body>
+</html>
