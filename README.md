@@ -1,8 +1,8 @@
 # File Manager Web App
 
-A Node.js + Express web application that allows users to securely manage their files across **Google Drive** and **Dropbox**, including listing, uploading, downloading, and deleting files—all from one interface.
+A Node.js + Express web application that allows users to securely manage their files across Google Drive and Dropbox, including listing, uploading, downloading, and deleting files—all from one interface.
 
-## ✨ Features
+##  Features
 
 -  OAuth 2.0 authentication 
 -  List files in your Google Drive or Dropbox account
@@ -10,7 +10,7 @@ A Node.js + Express web application that allows users to securely manage their f
 -  Download files from your cloud
 -  Delete files directly from the UI
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Backend:** Node.js, Express.js
 - **Frontend:** EJS templates, HTML, CSS
